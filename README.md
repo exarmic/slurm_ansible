@@ -35,7 +35,7 @@ Bring VM up:
 
 vagrant up server_centos_ansible
 
-During bringing up vm vagrant installs ansible, git and makes git clone 
+During bringing up vm vagrant installs ansible, git and makes git clone. The VM has 2 nics. one of them has ip 192.168.56.83.
 
 SSH to VM:
 
@@ -62,6 +62,7 @@ ansible-playbook -i hosts --vault-password-file files/vault_password playbook.ym
 
 
 "files/vault_password" must contain password that is used to encrypt "group_vars/all/vault.yml" 
+
 
 
 Variables
