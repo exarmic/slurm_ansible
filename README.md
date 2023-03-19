@@ -35,7 +35,7 @@ Bring VM up:
 
 vagrant up server_centos_ansible
 
-During bringing up vm vagrant installs ansible, git and makes git clone. The VM has 2 nics. one of them has ip 192.168.56.83.
+During bringing up vm vagrant installs ansible, git and makes git clone. The VM has 2 nics, one of them has ip 192.168.56.83.
 
 SSH to VM:
 
