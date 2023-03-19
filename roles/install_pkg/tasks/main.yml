@@ -1,0 +1,33 @@
+---
+# Install repos centos-release-scl for ruby-2.6
+- name: "Install epel-release and centos-release-scl yum"
+  ansible.builtin.yum:
+    name: 
+      - epel-release
+      - centos-release-scl
+    update_cache: yes
+    state: latest
+
+# Ruby 2.6 is min required for that app
+- name: "Install ruby 2.6 + dev"
+  ansible.builtin.yum:
+    name: 
+      - rh-ruby26
+      - rh-ruby26-ruby-devel
+    update_cache: yes
+    state: latest
+
+
+- name: "Install required packages, postgres and nginx"
+  ansible.builtin.yum:
+    name: 
+      - git
+      - libxml2-devel
+      - nodejs
+      - postgresql-devel
+      - "@Development tools"
+      - postgresql-server
+      - nginx
+      - python-psycopg2
+    update_cache: yes
+    state: latest

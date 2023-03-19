@@ -1,0 +1,10 @@
+---
+# vars file for install_postgres
+_pg_db_host: "{{ db_host | default('127.0.0.1') }}"
+_pg_db_port: "{{ db_port | default('5432') }}"
+_pg_db_name: "{{ db_name | default('xpaste_db') }}"
+_pg_db_user: "{{ db_user | default('xpaste_user') }}"
+_pg_db_password: "{{ db_password | default('xpaste_password') }}"
+
+
+

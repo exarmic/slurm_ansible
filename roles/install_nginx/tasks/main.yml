@@ -1,0 +1,27 @@
+---
+# tasks file for install_nginx
+
+- name: Make nginx.conf backup
+  ansible.builtin.copy:
+    src: /etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf.bak
+    remote_src: yes
+
+
+- name: replace main nginx config
+  ansible.builtin.copy:
+    src: "{{ working_dir }}/config/nginx.conf"
+    dest: /etc/nginx/nginx.conf
+    remote_src: yes
+    mode: 0644
+
+- name: Change app directory
+  ansible.builtin.replace:
+    path: /etc/nginx/nginx.conf
+    regexp: '\/app\/public'
+    replace: "{{ working_dir }}/public"
+
+- name: "Reload nginx"
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded

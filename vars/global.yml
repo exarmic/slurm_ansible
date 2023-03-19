@@ -1,0 +1,10 @@
+secret: mysecret
+rails_env: production
+db_host: 127.0.0.1
+db_port: 5432
+db_name: xpaste_db
+db_user: xpaste_user
+db_password: xpaste_password
+working_dir: /opt/app
+
+

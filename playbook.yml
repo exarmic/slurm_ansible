@@ -1,0 +1,31 @@
+---
+- name: Ansible prakt playbook
+  hosts: all
+  remote_user: root
+  become: true
+  gather_facts: no
+  
+  vars_files:
+    - vars/global.yml
+  
+  roles:
+    - role: install_pkg
+      tags: 
+        - pkg
+    - role: install_app
+      tags: 
+        - app
+    - role: install_postgres
+      tags: 
+        - postgres
+    - role: install_nginx
+      tags: 
+        - nginx
+
+  tasks: 
+    - name: enable and start service xpaste 
+      ansible.builtin.service:
+        name: xpaste
+        state: started
+        enabled: yes
+      tags: startapp

@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/ansible":{"guestpath":"/home/vagrant/ansible","hostpath":"/home/astralinux.ru/aanpleev/working/slurm/ansible_practicum","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/astralinux.ru/aanpleev/working/slurm/ansible_practicum","disabled":false,"__vagrantfile":true}}}

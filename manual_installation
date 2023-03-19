@@ -1,0 +1,139 @@
+
+
+[vagrant@centos ~]$ git clone https://gitlab.slurm.io/edu/xpaste_practicum.git
+
+на приглашении пароля ввести 
+
+systemd
+
+cat > /etc/systemd/system/xpaste.service
+
+#Put me in /lib/systemd/system/
+[Unit]
+Description=xpaste practicum service
+After=network.target
+
+[Service]
+Environment="SECRET_KEY_BASE=mysecret"
+# - любая строка
+Environment="RAILS_ENV=production"
+Environment="RAILS_LOG_TO_STDOUT=1"
+Environment="DB_HOST=125.0.0.1"
+# - адрес хоста postgresql (127.0.0.1)
+Environment="DB_PORT=5432"
+# - порт postgresql (5432)
+Environment="DB_NAME=xpastedb"
+# - имя базы данных
+Environment="DB_USER=xpaste_user"
+# - пользователь в базе данных
+Environment="DB_PASSWORD=xpaste_password"
+# - пароль для базы данных
+# Type=simple
+# User=nanodano
+WorkingDirectory=/root/xpaste_practicum
+ExecStart=/bin/bash -c 'source /opt/rh/rh-ruby26/enable && bundle exec rake db:migrate && bundle exec puma -b unix:///var/run/puma.sock -e $RAILS_ENV config.ru'
+# Restart=on-failure # or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+yum -y install ruby
+
+
+sudo yum install -y zlib zlib-devel openssl-devel
+yum groupinstall -y "Development Tools"
+sudo yum install wget
+
+
+- name: Install the 'Development tools' package group
+  ansible.builtin.yum:
+    name: "@Development tools"
+    state: present
+
+ wget https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.9.tar.gz --no-check-certificate
+tar -xzvf ruby-*
+cd ruby-*
+./configure
+make
+make install
+
+
+sudo yum -y install epel-release
+Refresh epel repo by typing: yum repolist.
+<!-- sudo yum install -y zlib zlib-devel openssl-devel -->
+<!-- #sudo yum install -y rh-ruby26-rubygem-bundler -->
+
+sudo yum install -y epel-release
+sudo yum install -y centos-release-scl
+
+sudo yum groupinstall -y "Development Tools"
+
+sudo yum install -y git
+sudo yum install -y libxml2-devel nodejs
+sudo yum install -y postgresql-devel
+
+sudo yum install -y rh-ruby26
+sudo yum install -y rh-ruby26-ruby-devel
+
+
+
+
+
+git clone https://gitlab.slurm.io/edu/xpaste_practicum.git
+cd xpaste_practicum
+ source /opt/rh/rh-ruby26/enable 
+
+
+gem install bundler:1.16.2
+gem install nokogiri -v '1.8.2' --source 'https://rubygems.org/'
+
+
+bundle config build.nokogiri --use-system-libraries
+
+bundle install --clean --no-cache --without development
+
+
+bundle exec rake db:migrate && bundle exec puma -b unix:///var/run/puma.sock -e $RAILS_ENV config.ru
+
+
+
+yum install postgresql-server
+
+postgresql-setup initdb
+
+создать базу {{ appname }}_db
+создать пользователя {{ appname }}_user
+создать пароль {{ appname }}_password
+
+
+
+yum install -y nginx mc
+
+
+
+
+
+/var/lib/pgsql/data/pg_hba.conf
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+# IPv6 local connections:
+host    all             all             ::1/128                 md5
+
+
+
+Before you begin install ansible requirements 
+
+ansible-galaxy install -r requirements.yml
+
+
+sudo yum install python-psycopg2
+
+ansible-playbook -i hosts --vault-password-file files/vault_password playbook.yml

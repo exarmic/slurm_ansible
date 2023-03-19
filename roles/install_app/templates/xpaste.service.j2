@@ -1,0 +1,19 @@
+#Put me in /lib/systemd/system/
+[Unit]
+Description=xpaste practicum service
+After=network.target
+
+[Service]
+Environment="SECRET_KEY_BASE={{ _app_secret }}"
+Environment="RAILS_ENV={{ _app_env }}"
+Environment="RAILS_LOG_TO_STDOUT=1"
+Environment="DB_HOST={{ _app_db_host }}"
+Environment="DB_PORT={{ _app_db_port }}"
+Environment="DB_NAME={{ _app_db_name }}"
+Environment="DB_USER={{ _app_db_user }}"
+Environment="DB_PASSWORD={{ _app_db_password }}"
+WorkingDirectory={{ _app_working_dir }}
+ExecStart=/bin/bash -c 'source /opt/rh/rh-ruby26/enable && bundle exec rake db:migrate && bundle exec puma -b unix:///var/run/puma.sock -e $RAILS_ENV config.ru'
+
+[Install]
+WantedBy=multi-user.target

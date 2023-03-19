@@ -1,0 +1,57 @@
+---
+# tasks file for install_app
+
+- name: git 
+  ansible.builtin.git:
+    repo: 'https://{{ slurm_git_user | urlencode }}:{{ slurm_git_password | urlencode }}@gitlab.slurm.io/edu/xpaste_practicum.git'
+    dest: "{{ working_dir }}"
+  
+- name: Install bundler
+  shell: |
+    source /opt/rh/rh-ruby26/enable
+    gem install bundler:1.16.2
+  args:
+    executable: /bin/bash
+
+- name: Install nokogiri
+  shell: |
+    source /opt/rh/rh-ruby26/enable
+    gem install nokogiri -v '1.8.2' --source 'https://rubygems.org/'
+  args:
+    executable: /bin/bash
+
+- name: Build nokogiri
+  shell: | 
+    cd "{{ working_dir }}"
+    source /opt/rh/rh-ruby26/enable
+    bundle config build.nokogiri --use-system-libraries
+  args:
+    executable: /bin/bash
+
+- name: Install dependencies
+  shell: |
+    cd "{{ working_dir }}"
+    source /opt/rh/rh-ruby26/enable
+    bundle install --no-cache --without development
+  args:
+    executable: /bin/bash
+
+- name: create systemd unit 
+  ansible.builtin.template:
+    src: xpaste.service.j2
+    dest: /lib/systemd/system/xpaste.service
+    mode: 0644
+
+
+# git clone https://s053220:00946545@gitlab.slurm.io/edu/xpaste_practicum.git
+# cd xpaste_practicum
+#  source /opt/rh/rh-ruby26/enable 
+
+
+# gem install bundler:1.16.2
+# gem install nokogiri -v '1.8.2' --source 'https://rubygems.org/'
+
+
+# bundle config build.nokogiri --use-system-libraries
+
+# bundle install --clean --no-cache --without development

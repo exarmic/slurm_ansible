@@ -1,0 +1,10 @@
+---
+# vars file for install_app
+_app_secret: "{{ secret | default('ANYSECRET') }}"
+_app_env: "{{ env | default('production') }}"
+_app_db_host: "{{ db_host | default('127.0.0.1') }}"
+_app_db_port: "{{ db_port | default('5432') }}"
+_app_db_name: "{{ db_name | default('xpaste_db') }}"
+_app_db_user: "{{ db_user | default('xpaste_user') }}"
+_app_db_password: "{{ db_password | default('xpaste_password') }}"
+_app_working_dir: "{{ working_dir | default('/opt/app') }}" 
